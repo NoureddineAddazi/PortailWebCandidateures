@@ -1,0 +1,77 @@
+﻿@model PortailWebCV.ViewModels.CandidatureViewModel
+
+@{
+    ViewData["Title"] = "Créer une candidature";
+}
+
+<div class="container p-4">
+    <div class="row mb-4 text-center alert alert-secondary" role="alert">
+        <h3>Créer votre Candidature</h3>
+    </div>
+    <form asp-action="CréerCandidat" enctype="multipart/form-data" class="row">
+        <div class="col-md-6">
+            <div class="text-center alert alert-success" role="alert">
+                <h4>Partie 1: Votre informations</h4>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label">Nom:</label>
+                <input asp-for="Nom" class="form-control" type="text" placeholder="Exemple: Ben Abdellah" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prénom" class="control-label">Prénom:</label>
+                <input asp-for="Prénom" class="form-control" type="text" placeholder="Exemple: Mohammed" />
+                <span asp-validation-for="Prénom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mail" class="control-label">Mail:</label>
+                <input asp-for="Mail" class="form-control" type="email" placeholder="Exemple: test@gmail.com" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Téléphone" class="control-label">Téléphone:</label>
+                <input asp-for="Téléphone" class="form-control" type="tel" placeholder="Exemple: 0612345678" />
+                <span asp-validation-for="Téléphone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NiveauEtude" class="control-label">Niveau d'étude:</label>
+                <input asp-for="NiveauEtude" class="form-control" type="text" placeholder="Exemple: BAC+5" />
+                <span asp-validation-for="NiveauEtude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnnéesExpérience" class="control-label">Années d'expérience:</label>
+                <input asp-for="AnnéesExpérience" class="form-control" type="number" placeholder="Exemple: 2" />
+                <span asp-validation-for="AnnéesExpérience" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DernierEmployeur" class="control-label">Dernier employeur:</label>
+                <input asp-for="DernierEmployeur" class="form-control" type="text" placeholder="Exemple: Oracle" />
+                <span asp-validation-for="DernierEmployeur" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="text-center alert alert-success" role="alert">
+                <h4>Étape 2: Votre CV</h4>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fichier" class="control-label">CV</label>
+                <input asp-for="Fichier" type="file" class="form-control" />
+                <span asp-validation-for="Fichier" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group col-md-12 text-center mt-3">
+            <input type="submit" value="Soumettre" class="btn btn-success" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+
+

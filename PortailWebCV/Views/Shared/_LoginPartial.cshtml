@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <p  class="nav-link text-dark" asp-area="Identity"  title="Administrateur">Admin: @User.Identity?.Name</p>
+        </li>
+        <li class="nav-item">
+            <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Accueil", "Candidat", new { area = "" })">
+                <button  type="submit" class="nav-link btn btn-outline-danger text-dark">Se déconnecter</button>
+            </form>
+        </li>
+    }
+</ul>

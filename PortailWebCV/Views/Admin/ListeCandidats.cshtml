@@ -1,0 +1,82 @@
+﻿@model List<PortailWebCV.Models.Candidature>
+
+@{
+    ViewData["Title"] = "Liste des Candidatures";
+}
+
+<div class="container p-4">
+    <div class="row mb-4 text-center alert alert-secondary" role="alert">
+        <h3>Liste des Candidatures</h3>
+    </div>
+    <div class="row">
+        <div class ="col-6">
+            <form asp-controller="Admin" asp-action="ListeCandidats" method="get" class="form-inline justify-content-center mb-3">
+                <div class="form-group mb-2">
+                    <label for="searchTerm" class="sr-only">Recherche:</label>
+                    <input type="text" class="form-control" id="searchTerm" name="chaine" placeholder="Rechercher par Nom, Prénom, E-mail ou Téléphone">
+                </div>
+                <button type="submit" class="btn btn-success ml-2">Rechercher</button>
+            </form>
+        </div>
+        
+    </div>
+    
+
+    <div class="row">
+        <div class="col-12">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Mail</th>
+                                <th scope="col">Téléphone</th>
+                                <th scope="col">Niveau d'étude</th>
+                                <th scope="col">Années d'expérience</th>
+                                <th scope="col">Dernier Employeur</th>
+                                <th scope="col">CV</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var candidature in Model)
+                            {
+                                <tr>
+                                    <td>@candidature.Nom</td>
+                                    <td>@candidature.Prénom</td>
+                                    <td>@candidature.Mail</td>
+                                    <td>@candidature.Téléphone</td>
+                                    <td>@candidature.NiveauEtude</td>
+                                    <td>@candidature.AnnéesExpérience</td>
+                                    <td>@candidature.DernierEmployeur</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(candidature.FichierUrl))
+                                        {
+                                            <a href="@Url.Content("/uploads/" + candidature.Nom + "_" + candidature.Prénom + "/" + candidature.FichierUrl)" target="_blank">Voir CV</a>
+                                        }
+                                        else
+                                        {
+                                            <span>Aucun fichier</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <form asp-controller="Admin" asp-action="SupprimerCandidature" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette candidature?');">
+                                            <input type="hidden" name="candidatureId" value="@candidature.Id" />
+                                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                        </form>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p class="alert alert-info text-center">Aucune candidature n'a été trouvée.</p>
+            }
+        </div>
+    </div>
+</div>
